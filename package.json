@@ -1,0 +1,42 @@
+{
+  "name": "tetsuo",
+  "displayName": "tetsuo",
+  "description": "Resaltado de sintaxis para el lenguaje tetsuo (.tt)",
+  "version": "0.1.0",
+  "publisher": "ser356",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "tetsuo",
+        "aliases": [
+          "tetsuo",
+          "tt"
+        ],
+        "extensions": [
+          ".tt"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "tetsuo",
+        "scopeName": "source.tetsuo",
+        "path": "./syntaxes/tetsuo.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "tetsuo",
+        "path": "./snippets/tetsuo.json"
+      }
+    ]
+  }
+}

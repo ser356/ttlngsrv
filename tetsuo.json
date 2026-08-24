@@ -1,0 +1,41 @@
+{
+  "funcion": {
+    "prefix": "fun",
+    "body": ["fun ${1:nombre}(${2}) {", "\t$0", "}"],
+    "description": "Función sin valor de retorno"
+  },
+  "funcion con retorno": {
+    "prefix": "funr",
+    "body": ["fun ${1:nombre}(${2}) -> ${3:u64} {", "\t$0", "\treturn ${4:0}", "}"],
+    "description": "Función con tipo de retorno"
+  },
+  "struct": {
+    "prefix": "struct",
+    "body": ["struct ${1:Nombre} {", "\t${2:campo}: ${3:u64},", "}"],
+    "description": "Declaración de struct"
+  },
+  "registro MMIO": {
+    "prefix": "reg",
+    "body": ["const ${1:UART_DR}: *${2:u8} = ${3:0x09000000}"],
+    "description": "Registro mapeado en memoria (idiom const + puntero tipado)"
+  },
+  "espera de periferico": {
+    "prefix": "poll",
+    "body": ["while ${1:ready}() != 0 {}"],
+    "description": "Bucle de sondeo sobre condición con nombre"
+  },
+  "bucle while": {
+    "prefix": "while",
+    "body": ["while ${1:i} != ${2:n} {", "\t$0", "\t${1:i} = ${1:i} + 1", "}"],
+    "description": "Bucle de recorrido"
+  },
+  "arena": {
+    "prefix": "arena",
+    "body": [
+      "let ${1:ar}: Arena",
+      "arena_init(&${1:ar}, ${2:IO_BUF}, ${3:65536})",
+      "let ${4:buf}: *u8 = arena_take(&${1:ar}, ${5:4096})"
+    ],
+    "description": "Inicialización de arena y reserva"
+  }
+}
