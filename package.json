@@ -1,8 +1,8 @@
 {
   "name": "tetsuo",
   "displayName": "tetsuo",
-  "description": "Resaltado de sintaxis para el lenguaje tetsuo (.tt)",
-  "version": "0.1.0",
+  "description": "Lenguaje tetsuo — highlighting, snippets, diagnósticos y hover vía LSP",
+  "version": "0.3.0",
   "publisher": "ser356",
   "license": "MIT",
   "engines": {
@@ -10,6 +10,10 @@
   },
   "categories": [
     "Programming Languages"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onLanguage:tetsuo"
   ],
   "contributes": {
     "languages": [
@@ -29,14 +33,49 @@
       {
         "language": "tetsuo",
         "scopeName": "source.tetsuo",
-        "path": "./syntaxes/tetsuo.tmLanguage.json"
+        "path": "./tetsuo.tmLanguage.json"
       }
     ],
     "snippets": [
       {
         "language": "tetsuo",
-        "path": "./snippets/tetsuo.json"
+        "path": "./tetsuo.json"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "tetsuo",
+      "properties": {
+        "tetsuo.compilerPath": {
+          "type": "string",
+          "default": "/Users/sergiogarciaseco/Developer/Code/tetsuo/build/main",
+          "description": "Ruta absoluta al binario `main` del compilador tetsuo. Se invoca con `--dump-ir` para diagnósticos."
+        },
+        "tetsuo.trace.server": {
+          "type": "string",
+          "enum": ["off", "messages", "verbose"],
+          "default": "off"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "watch": "tsc -w -p .",
+    "sync-spec": "node scripts/sync-spec.mjs /Users/sergiogarciaseco/Developer/Code/tetsuo",
+    "sync-spec:apply": "node scripts/sync-spec.mjs /Users/sergiogarciaseco/Developer/Code/tetsuo --apply && npm run package && npm run install-vsix",
+    "package": "npm run compile && vsce package --allow-missing-repository -o tetsuo.vsix",
+    "install-vsix": "code --install-extension tetsuo.vsix --force",
+    "vscode:prepublish": "npm run compile"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1",
+    "vscode-languageserver": "^9.0.1",
+    "vscode-languageserver-textdocument": "^1.0.12"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.75.0",
+    "@vscode/vsce": "^3.2.0",
+    "typescript": "^5.4.5"
   }
 }

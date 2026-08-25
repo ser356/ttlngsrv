@@ -1,0 +1,73 @@
+version: 1
+max_attempts: 3
+
+nodes:
+  plan:
+    type: delegate
+    message: |
+      Analiza la petición del usuario y devuelve un plan de cambio.
+      No edites ficheros todavía; responde solo con el JSON pedido.
+    schema:
+      type: object
+      required: [summary, files, steps, risk]
+      properties:
+        summary: {type: string}
+        files:   {type: array, items: {type: string}}
+        steps:   {type: array, items: {type: string}}
+        risk:    {type: string, enum: [low, medium, high]}
+
+  gate_plan:
+    type: gate
+    rules:
+      - when: "len(files) == 0"
+        route: reject
+      - when: "risk == 'high'"
+        route: reject
+      - when: "len(files) > 10"
+        route: reject
+      - default: true
+        route: accept
+
+  implement:
+    type: delegate
+    message: |
+      Ejecuta los pasos del plan. Cuando termines, responde con
+      `done: true` para que el motor arranque verify.
+    schema:
+      type: object
+      required: [done]
+      properties:
+        done: {type: boolean}
+        note: {type: string}
+
+  verify:
+    type: shell
+    command: "python3 -c \"import json; json.load(open('tetsuo.tmLanguage.json')); json.load(open('tetsuo.json')); json.load(open('language-configuration.json'))\""
+    timeout: 1m
+    routes:
+      exit_zero: pass
+      exit_nonzero: fail
+      attempts_exceeded: exhausted
+
+  review:
+    type: delegate
+    message: |
+      El grafo terminó. Resume qué se hizo y por qué se aceptó.
+    schema:
+      type: object
+      required: [summary]
+      properties:
+        summary: {type: string}
+
+  escalate:
+    type: finish
+
+  finish:
+    type: finish
+
+edges:
+  - [START, plan, gate_plan]
+  - [gate_plan, {accept: implement, reject: escalate}]
+  - [implement, verify]
+  - [verify, {pass: review, fail: implement, exhausted: escalate}]
+  - [review, finish]

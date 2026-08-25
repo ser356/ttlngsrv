@@ -1,0 +1,10 @@
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+graft/
+.graph/sessions.db
+
+# LSP build artefacts
+node_modules/
+out/
+*.vsix
+.DS_Store
+

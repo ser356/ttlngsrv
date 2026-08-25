@@ -37,5 +37,15 @@
       "let ${4:buf}: *u8 = arena_take(&${1:ar}, ${5:4096})"
     ],
     "description": "Inicialización de arena y reserva"
+  },
+  "import": {
+    "prefix": "import",
+    "body": ["import '${1:ruta/al/fichero.tt}'"],
+    "description": "Directiva del preprocesador (una por línea al principio del fichero)"
+  },
+  "buffer bss": {
+    "prefix": "bss",
+    "body": ["bss ${1:IO_BUF}: ${2:65536}"],
+    "description": "Buffer estático a cero (base de arenas en target macos)"
   }
 }

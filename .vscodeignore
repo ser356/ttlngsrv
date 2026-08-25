@@ -1,0 +1,13 @@
+.vscode/**
+.vscode-test/**
+src/**
+scripts/**
+tsconfig.json
+node_modules/.cache/**
+.gitignore
+.graph/**
+graft/**
+.claude/**
+.github/**
+.mcp.json
+*.map

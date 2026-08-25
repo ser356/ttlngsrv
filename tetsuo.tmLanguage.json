@@ -25,6 +25,9 @@
       "include": "#builtins"
     },
     {
+      "include": "#nil"
+    },
+    {
       "include": "#function-def"
     },
     {
@@ -118,7 +121,11 @@
       "patterns": [
         {
           "name": "keyword.control.tetsuo",
-          "match": "\\b(if|else|while|loop|break|return)\\b"
+          "match": "\\b(return|if|else|loop|while|break)\\b"
+        },
+        {
+          "name": "keyword.control.import.tetsuo",
+          "match": "^\\s*\\bimport\\b"
         },
         {
           "name": "storage.type.function.tetsuo",
@@ -140,7 +147,11 @@
     },
     "builtins": {
       "name": "support.function.builtin.tetsuo",
-      "match": "\\bsyscall\\b(?=\\s*\\()"
+      "match": "\\b(sizeof|syscall)\\b(?=\\s*\\()"
+    },
+    "nil": {
+      "name": "constant.language.nil.tetsuo",
+      "match": "\\b(nil)\\b"
     },
     "function-def": {
       "match": "(?<=\\bfun)\\s+([A-Za-z_][A-Za-z0-9_]*)",
