@@ -1,5 +1,5 @@
 // GENERATED-START keywords: run `npm run sync-spec:apply` para refrescar
-export const CONTROL_KW = ["return","if","else","loop","while","break"] as const;
+export const CONTROL_KW = ["return","if","else","loop","while","break","continue"] as const;
 export const STORAGE_KW = ["fun","let","const","struct","bss"] as const;
 export const CONSTANTS  = ["nil"] as const;
 export const BUILTINS   = ["sizeof","syscall"] as const;

@@ -121,7 +121,7 @@
       "patterns": [
         {
           "name": "keyword.control.tetsuo",
-          "match": "\\b(return|if|else|loop|while|break)\\b"
+          "match": "\\b(return|if|else|loop|while|break|continue)\\b"
         },
         {
           "name": "keyword.control.import.tetsuo",

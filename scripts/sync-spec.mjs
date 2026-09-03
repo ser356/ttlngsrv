@@ -37,6 +37,7 @@ const BUCKET = {
   loop: 'control',
   while: 'control',
   break: 'control',
+  continue: 'control',
   nil: 'constant',
   sizeof: 'builtin',
 };
