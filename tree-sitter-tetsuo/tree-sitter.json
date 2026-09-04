@@ -1,0 +1,38 @@
+{
+  "grammars": [
+    {
+      "name": "tetsuo",
+      "camelcase": "Tetsuo",
+      "scope": "source.tetsuo",
+      "path": ".",
+      "file-types": [
+        "tt"
+      ],
+      "tags": [
+        "queries/tags.scm"
+      ],
+      "injection-regex": "^tetsuo$"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Tree-sitter grammar for the Tetsuo language",
+    "authors": [
+      {
+        "name": "ser356"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/ser356/ttlngsrv"
+    }
+  },
+  "bindings": {
+    "c": false,
+    "go": false,
+    "node": false,
+    "python": false,
+    "rust": false,
+    "swift": false
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "tree-sitter-tetsuo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tree-sitter grammar for the Tetsuo language",
+  "license": "MIT",
+  "repository": "https://github.com/ser356/ttlngsrv",
+  "keywords": [
+    "tree-sitter",
+    "tetsuo"
+  ],
+  "scripts": {
+    "generate": "tree-sitter generate",
+    "test": "tree-sitter generate && tree-sitter test"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.27.0"
+  },
+  "allowScripts": {
+    "tree-sitter-cli@0.27.0": true
+  }
+}

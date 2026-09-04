@@ -28,6 +28,27 @@ Convenciones adicionales que se resaltan:
 - Un escape desconocido dentro de una cadena se marca como error, igual que
   hace `die_lex`.
 
+## Tree-sitter y Graft
+
+La gramática estructural vive en `tree-sitter-tetsuo/`. Sigue la sintaxis del
+compilador y expone funciones, structs, constantes, buffers BSS y llamadas
+mediante `queries/tags.scm`.
+
+```sh
+npm install --prefix tree-sitter-tetsuo
+npm run tree-sitter:generate
+npm run tree-sitter:test
+```
+
+Los forks se conectan sin publicar paquetes:
+
+1. `tree-sitter-wasm` declara una dependencia Git llamada
+   `tree-sitter-tetsuo` apuntando a un commit de este repo. Su buscador recursivo
+   encuentra la gramática embebida y genera el WASM `tetsuo`.
+2. Graft apunta a ese fork de `tree-sitter-wasm`, registra `.tt` con el basename
+  WASM `tetsuo` y copia `queries/tags.scm` como
+  `src/graph/queries/tetsuo.scm`.
+
 ## Instalación
 
 ### Desde el `.vsix`

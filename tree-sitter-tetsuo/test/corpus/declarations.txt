@@ -1,0 +1,59 @@
+==================
+Declarations
+==================
+
+import 'lib/std.tt'
+const LIMIT: u64 = 4
+bss BUFFER: 64
+
+struct Pair {
+    left: u64,
+    right: *Pair,
+}
+
+fun add(a: u64, b: u64) -> u64 {
+    let result: u64 = a + b
+    return result
+}
+
+---
+
+(source_file
+  (import_directive
+    path: (string_literal))
+  (const_declaration
+    name: (identifier)
+    type: (primitive_type)
+    value: (integer_literal))
+  (bss_declaration
+    name: (identifier)
+    size: (integer_literal))
+  (struct_declaration
+    name: (type_identifier)
+    body: (field_declaration_list
+      (field_declaration
+        name: (identifier)
+        type: (primitive_type))
+      (field_declaration
+        name: (identifier)
+        type: (pointer_type
+          type: (type_identifier)))))
+  (function_definition
+    name: (identifier)
+    parameters: (parameters
+      (parameter
+        name: (identifier)
+        type: (primitive_type))
+      (parameter
+        name: (identifier)
+        type: (primitive_type)))
+    return_type: (primitive_type)
+    body: (block
+      (let_declaration
+        name: (identifier)
+        type: (primitive_type)
+        value: (binary_expression
+          left: (identifier)
+          right: (identifier)))
+      (return_statement
+        value: (identifier)))))

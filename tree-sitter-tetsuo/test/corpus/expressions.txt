@@ -1,0 +1,43 @@
+==================
+Expressions
+==================
+
+fun main(p: *u64) -> u64 {
+    let values: [4]u64
+    values[0] = @p + 1 * 2
+    return values[0] as u64
+}
+
+---
+
+(source_file
+  (function_definition
+    name: (identifier)
+    parameters: (parameters
+      (parameter
+        name: (identifier)
+        type: (pointer_type
+          type: (primitive_type))))
+    return_type: (primitive_type)
+    body: (block
+      (let_declaration
+        name: (identifier)
+        type: (array_type
+          length: (integer_literal)
+          type: (primitive_type)))
+      (assignment_statement
+        left: (subscript_expression
+          value: (identifier)
+          index: (integer_literal))
+        right: (binary_expression
+          left: (unary_expression
+            argument: (identifier))
+          right: (binary_expression
+            left: (integer_literal)
+            right: (integer_literal))))
+      (return_statement
+        value: (cast_expression
+          value: (subscript_expression
+            value: (identifier)
+            index: (integer_literal))
+          type: (primitive_type))))))

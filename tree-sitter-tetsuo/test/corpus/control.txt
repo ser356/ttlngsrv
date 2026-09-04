@@ -1,0 +1,42 @@
+==================
+Control
+==================
+
+fun run(value: u64) {
+    if (value != 0) {
+        while value > 1 {
+            continue
+        }
+    } else {
+        loop {
+            break
+        }
+    }
+}
+
+---
+
+(source_file
+  (function_definition
+    name: (identifier)
+    parameters: (parameters
+      (parameter
+        name: (identifier)
+        type: (primitive_type)))
+    body: (block
+      (if_statement
+        condition: (parenthesized_expression
+          (binary_expression
+            left: (identifier)
+            right: (integer_literal)))
+        consequence: (block
+          (while_statement
+            condition: (binary_expression
+              left: (identifier)
+              right: (integer_literal))
+            body: (block
+              (continue_statement))))
+        alternative: (block
+          (loop_statement
+            body: (block
+              (break_statement))))))))
