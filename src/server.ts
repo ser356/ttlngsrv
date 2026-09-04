@@ -16,6 +16,7 @@ import { validate } from './diagnostics';
 import {
   CONTROL_KW,
   STORAGE_KW,
+  OPERATOR_KW,
   TYPES,
   BUILTINS,
   CONSTANTS,
@@ -104,6 +105,7 @@ conn.onCompletion((): CompletionItem[] => {
   };
   CONTROL_KW.forEach(k => push(k, CompletionItemKind.Keyword));
   STORAGE_KW.forEach(k => push(k, CompletionItemKind.Keyword));
+  OPERATOR_KW.forEach(k => push(k, CompletionItemKind.Operator));
   TYPES.forEach(t => push(t, CompletionItemKind.TypeParameter));
   BUILTINS.forEach(b => push(b, CompletionItemKind.Function));
   CONSTANTS.forEach(c => push(c, CompletionItemKind.Constant));

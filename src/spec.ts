@@ -1,6 +1,7 @@
 // GENERATED-START keywords: run `npm run sync-spec:apply` para refrescar
 export const CONTROL_KW = ["return","if","else","loop","while","break","continue"] as const;
 export const STORAGE_KW = ["fun","let","const","struct","bss"] as const;
+export const OPERATOR_KW = ["as"] as const;
 export const CONSTANTS  = ["nil"] as const;
 export const BUILTINS   = ["sizeof","syscall"] as const;
 export const TYPES      = ["u8","u32","u64","str"] as const;
@@ -18,6 +19,7 @@ export const DOCS: Record<string, string> = {
   while:   '`while cond { }` — bucle mientras cierto (paréntesis opcionales).',
   loop:    '`loop { ... break ... }` — bucle infinito con salida vía `break`.',
   break:   'Sale del bucle más interno.',
+  as:      '`expr as T` — conversión explícita al tipo `T`.',
   nil:     'Azúcar del literal `0` — puntero nulo. Comparar solo con `==` / `!=`.',
   sizeof:  '`sizeof(T)` — tamaño en bytes resuelto en parse-time. `sizeof(struct)` = nfields × 8.',
   syscall: '`syscall(n, a, b, c)` — única puerta al sistema (target macos). ⚠ Nunca en `--target=virt`.',

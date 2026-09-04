@@ -124,6 +124,10 @@
           "match": "\\b(return|if|else|loop|while|break|continue)\\b"
         },
         {
+          "name": "keyword.operator.cast.tetsuo",
+          "match": "\\b(as)\\b"
+        },
+        {
           "name": "keyword.control.import.tetsuo",
           "match": "^\\s*\\bimport\\b"
         },

@@ -38,6 +38,7 @@ const BUCKET = {
   while: 'control',
   break: 'control',
   continue: 'control',
+  as: 'operator',
   nil: 'constant',
   sizeof: 'builtin',
 };
@@ -73,12 +74,13 @@ if (orphan.length) {
   console.error(`warn: BUCKET tiene claves ausentes en lexer.tt: ${orphan.join(', ')}`);
 }
 
-const bkt = { control: [], storage: [], constant: [], builtin: [] };
+const bkt = { control: [], storage: [], operator: [], constant: [], builtin: [] };
 for (const [id, lit] of found) bkt[BUCKET[id]].push(lit);
 
 const specBlock =
   `export const CONTROL_KW = ${JSON.stringify(bkt.control)} as const;\n` +
   `export const STORAGE_KW = ${JSON.stringify(bkt.storage)} as const;\n` +
+  `export const OPERATOR_KW = ${JSON.stringify(bkt.operator)} as const;\n` +
   `export const CONSTANTS  = ${JSON.stringify(bkt.constant)} as const;\n` +
   `export const BUILTINS   = ${JSON.stringify([...bkt.builtin, 'syscall'])} as const;\n` +
   `export const TYPES      = ["u8","u32","u64","str"] as const;\n`;
@@ -105,6 +107,7 @@ const g = JSON.parse(readFileSync(tmLangPath, 'utf8'));
 const controlP = g.repository.keywords.patterns.find(p => p.name === 'keyword.control.tetsuo');
 const storageP = g.repository.keywords.patterns.find(p => p.name === 'storage.type.tetsuo');
 const modifierP = g.repository.keywords.patterns.find(p => p.name === 'storage.modifier.tetsuo');
+const operatorP = g.repository.keywords.patterns.find(p => p.name === 'keyword.operator.cast.tetsuo');
 
 const storageTypes = bkt.storage.filter(k => k === 'let' || k === 'struct');
 const storageMods = bkt.storage.filter(k => k === 'const' || k === 'bss');
@@ -112,6 +115,7 @@ const storageMods = bkt.storage.filter(k => k === 'const' || k === 'bss');
 if (controlP) controlP.match = `\\b(${bkt.control.join('|')})\\b`;
 if (storageP) storageP.match = `\\b(${storageTypes.join('|')})\\b`;
 if (modifierP) modifierP.match = `\\b(${storageMods.join('|')})\\b`;
+if (operatorP) operatorP.match = `\\b(${bkt.operator.join('|')})\\b`;
 g.repository.builtins.match = `\\b(${[...bkt.builtin, 'syscall'].join('|')})\\b(?=\\s*\\()`;
 g.repository.nil.match = `\\b(${bkt.constant.join('|')})\\b`;
 
