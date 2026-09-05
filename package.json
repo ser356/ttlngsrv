@@ -2,7 +2,7 @@
   "name": "tetsuo",
   "displayName": "tetsuo",
   "description": "Lenguaje tetsuo — highlighting, snippets, diagnósticos y hover vía LSP",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "publisher": "ser356",
   "license": "MIT",
   "engines": {
@@ -47,8 +47,23 @@
       "properties": {
         "tetsuo.compilerPath": {
           "type": "string",
-          "default": "/Users/sergiogarciaseco/Developer/Code/tetsuo/build/main",
-          "description": "Ruta absoluta al binario `main` del compilador tetsuo. Se invoca con `--dump-ir` para diagnósticos."
+          "default": "",
+          "description": "Ruta absoluta al binario del compilador tetsuo. Se invoca con `--dump-ir` para diagnósticos. Vacío = se busca `build/main` en la raíz del proyecto."
+        },
+        "tetsuo.projectRoot": {
+          "type": "string",
+          "default": "",
+          "description": "Raíz contra la que se resuelven las rutas de `import`. Vacío = el ancestro más cercano con `.git`."
+        },
+        "tetsuo.prelude": {
+          "type": "boolean",
+          "default": true,
+          "description": "Para un .tt suelto y sin `import` propios (por ejemplo un test), compilarlo detrás de las unidades de librería del proyecto en lugar de aislado."
+        },
+        "tetsuo.entryFile": {
+          "type": "string",
+          "default": "",
+          "description": "Fichero raíz que se compila para diagnosticar (relativo a la raíz del proyecto). Vacío = se deduce del grafo de imports; por ejemplo `tests/fixpoint_entry.tt` en el repo tetsuo."
         },
         "tetsuo.trace.server": {
           "type": "string",
