@@ -49,6 +49,44 @@ Los forks se conectan sin publicar paquetes:
   WASM `tetsuo` y copia `queries/tags.scm` como
   `src/graph/queries/tetsuo.scm`.
 
+## Diagnósticos (LSP)
+
+Los errores del panel *Problems* los produce el compilador de verdad, no un
+analizador aparte: el servidor invoca `tetsuoc --dump-ir` y traduce su salida.
+
+**tetsuo no tiene módulos.** `import 'ruta.tt'` es textual y el preprocesador
+pega todos los ficheros en un único buffer plano, así que un fichero suelto
+como `lib/fmt.tt` o `src/check.tt` no es un programa compilable: no declara
+`io_write` ni `bytes_eq`, no conoce `struct Program`, y compilarlo aislado
+produce cientos de errores falsos (`funcion no declarada`, `identificador no
+resuelto`, `postfix no soportado`, …).
+
+Por eso el servidor **no compila el fichero abierto**, sino el programa al que
+pertenece:
+
+1. Escanea los `.tt` del proyecto y construye el grafo de `import`.
+2. Elige como raíz el fichero que nadie importa y que alcanza al fichero
+   editado con el cierre más grande (en este repo, `tests/fixpoint_entry.tt`).
+3. Copia ese programa a un directorio temporal, sustituyendo por el buffer del
+   editor los ficheros con cambios sin guardar, y compila ahí. La copia entera
+   es necesaria porque el guard de inclusión del preprocesador compara la ruta
+   literal: redirigir un `import` a una copia temporal duplicaría el original.
+4. Reparte los diagnósticos por fichero — el compilador ya reporta la ruta y la
+   línea del fichero original, no las del buffer expandido.
+
+Un fichero suelto y sin `import` propios (un `tests/*_test.tt`, por ejemplo) se
+compila detrás de las unidades de librería del proyecto — las mismas que arma
+`tests/macos_build.sh`, excluyendo las que declaran `fun main`.
+
+### Ajustes
+
+| Ajuste | Por defecto | Qué hace |
+|---|---|---|
+| `tetsuo.compilerPath` | `""` | Binario del compilador. Vacío: se busca `build/main` en la raíz. |
+| `tetsuo.projectRoot` | `""` | Raíz contra la que se resuelven los `import`. Vacío: el ancestro más cercano con `.git`. |
+| `tetsuo.entryFile` | `""` | Fuerza el fichero raíz a compilar. Vacío: se deduce del grafo. |
+| `tetsuo.prelude` | `true` | Compila los fragmentos sueltos detrás de la librería del proyecto. |
+
 ## Instalación
 
 ### Desde el `.vsix`
