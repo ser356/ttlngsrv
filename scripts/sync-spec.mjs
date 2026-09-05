@@ -97,7 +97,7 @@ const specHeader = specSrc.slice(0, specStart);
 const specFooter = specSrc.slice(specEnd);
 const newSpec =
   specHeader +
-  '// GENERATED-START keywords: run `npm run sync-spec:apply` para refrescar\n' +
+  '// GENERATED-START keywords: run `./sync.sh` para refrescar\n' +
   specBlock +
   specFooter;
 

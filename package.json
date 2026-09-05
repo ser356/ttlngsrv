@@ -61,8 +61,8 @@
   "scripts": {
     "compile": "tsc -p .",
     "watch": "tsc -w -p .",
-    "sync-spec": "node scripts/sync-spec.mjs /Users/sergiogarciaseco/Developer/Code/tetsuo",
-    "sync-spec:apply": "node scripts/sync-spec.mjs /Users/sergiogarciaseco/Developer/Code/tetsuo --apply && npm run package && npm run install-vsix",
+    "sync-spec": "node scripts/sync-spec.mjs ../tetsuo",
+    "sync-spec:apply": "./sync.sh",
     "tree-sitter:generate": "npm --prefix tree-sitter-tetsuo run generate",
     "tree-sitter:test": "npm --prefix tree-sitter-tetsuo test",
     "package": "npm run compile && vsce package --allow-missing-repository -o tetsuo.vsix",

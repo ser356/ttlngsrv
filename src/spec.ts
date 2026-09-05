@@ -1,4 +1,4 @@
-// GENERATED-START keywords: run `npm run sync-spec:apply` para refrescar
+// GENERATED-START keywords: run `./sync.sh` para refrescar
 export const CONTROL_KW = ["return","if","else","loop","while","break","continue"] as const;
 export const STORAGE_KW = ["fun","let","const","struct","bss"] as const;
 export const OPERATOR_KW = ["as"] as const;
